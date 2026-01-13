@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Gymbooking.Data;
 using Gymbooking.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gymbooking.Controllers
 {
@@ -52,6 +53,7 @@ namespace Gymbooking.Controllers
         }
 
         // GET: GymClasses/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -74,6 +76,7 @@ namespace Gymbooking.Controllers
         }
 
         // GET: GymClasses/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -125,6 +128,7 @@ namespace Gymbooking.Controllers
         }
 
         // GET: GymClasses/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +161,7 @@ namespace Gymbooking.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public async Task<IActionResult> BookingToggle(int? id)
         {
             if (id == null) return NotFound(); 

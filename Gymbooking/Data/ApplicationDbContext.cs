@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Gymbooking.Data
 {
-    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+    //public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
     //public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
     {
-        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        //{
-        //}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<GymClass> GymClasses { get; set; } = default!;
 
