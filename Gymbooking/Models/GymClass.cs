@@ -10,6 +10,6 @@
         public string Description { get; set; }
 
         //Navigation property for the many-to-many relationship with ApplicationUser
-        public ICollection<ApplicationUser> AttendingMembers { get; set; }
+        public ICollection<ApplicationUser>? AttendingMembers { get; set; }
     }
 }

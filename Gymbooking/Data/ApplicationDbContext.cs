@@ -16,9 +16,9 @@ namespace Gymbooking.Data
 
         public DbSet<GymClass> GymClasses { get; set; } = default!;
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
 
             // Configure many-to-many relationship between ApplicationUser and GymClass
             //builder.Entity<ApplicationUser>()
@@ -28,6 +28,6 @@ namespace Gymbooking.Data
 
             //builder.Entity<ApplicationUserGymClass>()
             //    .HasKey(t => new { t.ApplicationUserId, t.GymClassId });
-        }
+        //}
     }
 }
