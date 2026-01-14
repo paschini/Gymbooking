@@ -2,6 +2,7 @@ using Gymbooking.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Gymbooking.Models;
+using Gymbooking.Models.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    await app.SeedDataAsync();
 }
 else
 {

@@ -47,7 +47,7 @@
                 {
                     <div>@member.Email</div>
                 }
-                @if (ViewBag.IsBooked)
+                @if(ViewBag.IsBooked)
                 {
                     <span class="badge bg-success">You are booked</span>
                 }
@@ -56,6 +56,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    @if (User.IsInRole("Admin")) {  <a asp-action="Edit" asp-route-id="@Model.Id"> Edit </a><span>|</span> }
+    @if (User.IsInRole("Member")) { <a asp-action="BookingToggle" asp-route-id="@Model.Id"> @if (ViewBag.IsBooked) { <span>Cancel Booking</span> } else { <span>Book class</span> } </a> }
     <a asp-action="Index">Back to List</a>
 </div>
