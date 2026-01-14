@@ -24,8 +24,8 @@ namespace Gymbooking.Data
 
             var usersToAdd = new[]
             {
-                (Email: "admin@Gymbokning.se", Password: "Admin123!", Role: "Admin"),
-                (Email: "member@Gymbokning.se", Password: "Member123!", Role: "Member")
+                (FirstName: "Admin", LastName: "Adminsson", Email: "admin@Gymbokning.se", Password: "Admin123!", Role: "Admin"),
+                (FirstName: "Member", LastName: "Membersson", Email: "member@Gymbokning.se", Password: "Member123!", Role: "Member")
             };
 
             var usersToAssignRoles = usersToAdd.Select(u => (u.Email, u.Role)).ToArray();   
@@ -48,15 +48,17 @@ namespace Gymbooking.Data
             }
         }
 
-        private static async Task AddAccountAsync((string Email, string Password, string Role)[] users)
+        private static async Task AddAccountAsync((string firstName, string lastName, string Email, string Password, string Role)[] users)
         {
-            foreach (var (email, password, role) in users)
+            foreach (var (firstName, lastName, email, password, role) in users)
             {
                 var userFound = await _userManager.FindByEmailAsync(email);
                 if (userFound == null)
                 {
                     userFound = new ApplicationUser
                     {
+                        FirstName = firstName,
+                        LastName = lastName,
                         UserName = email,
                         Email = email,
                         EmailConfirmed = true

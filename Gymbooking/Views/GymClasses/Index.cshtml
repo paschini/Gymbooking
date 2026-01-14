@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var filteredClasses = Model.Where(c => c.StartTime >= DateTime.Now).OrderBy(c => c.StartTime);
 }
 
 <h1>Index</h1>
@@ -28,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in filteredClasses) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

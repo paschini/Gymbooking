@@ -16,18 +16,36 @@ namespace Gymbooking.Data
 
         public DbSet<GymClass> GymClasses { get; set; } = default!;
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
-            // Configure many-to-many relationship between ApplicationUser and GymClass
-            //builder.Entity<ApplicationUser>()
-            //    .HasMany(u => u.AttendedClasses)
-            //    .WithMany(c => c.AttendingMembers)
-            //    .UsingEntity(j => j.ToTable("ApplicationUserGymClasses"));
+            // Shadow property to track the time of user registration
+            builder.Entity<ApplicationUser>()
+            .Property<DateTime>("TimeOfRegistration");
+        }
 
-            //builder.Entity<ApplicationUserGymClass>()
-            //    .HasKey(t => new { t.ApplicationUserId, t.GymClassId });
-        //}
+        public override int SaveChanges()
+        {
+            SetTimeOfRegistration();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetTimeOfRegistration();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetTimeOfRegistration()
+        {
+            var entries = ChangeTracker.Entries<ApplicationUser>()
+                .Where(e => e.State == EntityState.Added);
+
+            foreach (var entry in entries)
+            {
+                entry.Property("TimeOfRegistration").CurrentValue = DateTime.Now; // or UtcNow
+            }
+        }
     }
 }
